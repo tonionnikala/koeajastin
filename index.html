@@ -118,9 +118,9 @@ body.setup #setup{display:block}
 <div id="setup">
   <div class="setupwrap">
     <h1>Koeajastin</h1>
-    <p>Tykin näyttö ja puhelimen ohjaus yhdistetään samalla huonekoodilla. Tunnuksia ei tarvita.</p>
+    <p>Heijastettava näyttö ja puhelimen ohjaus yhdistetään samalla huonekoodilla. Tunnuksia ei tarvita.</p>
     <fieldset>
-      <legend>Tämä kone on tykin näyttö</legend>
+      <legend>Heijastettava näyttö</legend>
       <label for="codeIn">Huonekoodi (näkyy puhelimen ohjauksessa)</label>
       <input type="text" id="codeIn" maxlength="12" autocomplete="off" placeholder="ESIM. K7M4Q2XP">
       <div class="btns"><button class="b primary" id="joinDisp">Avaa näyttö</button></div>
@@ -162,7 +162,7 @@ body.setup #setup{display:block}
   <div class="ctlwrap">
     <div class="ctlhead"><h1>Opettajan ohjaus</h1><button class="chip" id="ctlLeave">Vaihda huone</button></div>
     <div class="roombox">
-      <div>Huonekoodi tykin koneelle:</div>
+      <div>Huonekoodi heijastettavalle näytölle:</div>
       <div class="code" id="roomCode">–</div>
       <div class="link" id="roomLink"></div>
       <div class="btns"><button class="b" id="copyLink">Kopioi näytön linkki</button></div>
@@ -284,7 +284,7 @@ body.setup #setup{display:block}
     if(es) es.close();
     setConn("", "Yhdistetään…");
     es = new EventSource(RELAY+PREFIX+room+"/sse?since=all");
-    es.onopen = () => setConn("on", "Yhdistetty – muutokset näkyvät tykillä heti.");
+    es.onopen = () => setConn("on", "Yhdistetty – muutokset näkyvät heti.");
     es.onerror = () => setConn("off", "Yhteys katkesi – yritetään uudelleen. Ajastin jatkaa silti.");
     es.onmessage = ev => {
       try{
@@ -356,10 +356,10 @@ body.setup #setup{display:block}
   $("bNotice").onclick = () => { const v=$("fNotice").value.trim(); if(v) commit({notice:v}); };
   $("bNoticeClear").onclick = () => commit({notice:""});
 
-  ["Laita puhelin äänettömälle ja laukkuun.","Kirjaudu koneelle omilla tunnuksillasi ja avaa koeympäristö.","Kirjoita nimesi ja opiskelijanumerosi jokaiseen vastauspaperiin.","Palauta vastauksesi ennen kuin poistut salista."].forEach(t=>{
+  ["Onhan puhelin äänettömänä ja laukussa.","Kirjaudu  ./abitti tunnuksella ja avaa koeympäristö.","Palauta lainaamasi välineet ennen kuin poistut salista."].forEach(t=>{
     const b=document.createElement("button"); b.type="button"; b.textContent="+ "+t.split(" ").slice(0,3).join(" ")+"…";
     b.onclick=()=>{ const ta=$("fInstr"); ta.value=(ta.value.trim()?ta.value.replace(/\s*$/,"")+"\n":"")+t; }; $("presets").appendChild(b); });
-  ["Viimeiset 15 minuuttia.","Muista tallentaa ja palauttaa.","Kysymykset: nosta käsi."].forEach(t=>{
+  ["Viimeiset 15 minuuttia.","Kysymyksiä/ongelmia: nosta käsi."].forEach(t=>{
     const b=document.createElement("button"); b.type="button"; b.textContent=t; b.onclick=()=>{$("fNotice").value=t;}; $("noticePresets").appendChild(b); });
 
   // ---------- projector niceties
